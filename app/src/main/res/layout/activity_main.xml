@@ -19,9 +19,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
-            android:padding="30dp"
-            android:text="Sign In" />
+            android:layout_marginTop="100dp"
+            android:padding="20dp"
+            android:textSize="50sp"
+            android:text="𝓐𝓹𝓼𝓱𝓪𝓱" />
 
         <EditText
             android:id="@+id/mobileNumber"
@@ -54,7 +55,7 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_next"
             android:background="@drawable/btn_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +63,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:text="Next" />
+            android:text="Next"
+             />
 
         <Button
             android:id="@+id/button2"

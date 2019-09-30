@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
             showHome()
         }
 
+
     }
 
     private fun showRegistration(){
@@ -32,4 +33,6 @@ class MainActivity : AppCompatActivity() {
         registrationLayout.visibility=View.GONE
         homeLayout.visibility=View.VISIBLE
     }
+
+
 }
