@@ -1,5 +1,6 @@
 package com.example.temp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -33,10 +34,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_next.setOnClickListener() {
+            val intent = Intent(this, MapsActivity::class.java)
+// To pass any data to next activity
+//            intent.putExtra("keyIdentifier", value)
+// start your next activity
+
             val mob: String = (findViewById(R.id.mobileNumber) as EditText).text.toString()
             val pass: String = (findViewById(R.id.password) as EditText).text.toString()
             if ((mob.trim().length<=0) or (pass.trim().length<=0))
                 Toast.makeText(applicationContext, "Username or Password not specified!", Toast.LENGTH_SHORT).show()
+            else
+                startActivity(intent)
         }
 
         }
