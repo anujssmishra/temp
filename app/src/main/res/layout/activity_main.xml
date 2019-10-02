@@ -22,7 +22,8 @@
             android:layout_marginTop="100dp"
             android:padding="20dp"
             android:textSize="50sp"
-            android:text="𝓐𝓹𝓼𝓱𝓪𝓱" />
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="A P S I T" />
 
         <EditText
             android:id="@+id/mobileNumber"
@@ -31,6 +32,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_background"
             android:ems="10"
             android:hint="Mobile Number"
@@ -44,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:ems="10"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:padding="10dp"
@@ -60,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:textAllCaps="false"
@@ -71,6 +73,7 @@
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
             android:hint="Forgot your login details? Click Here" />
 

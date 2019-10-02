@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/edit_text_background"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/edit_text_background"
@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/edit_text_background"
@@ -72,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/edit_text_background"
@@ -90,7 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/edit_text_background"
@@ -122,7 +122,7 @@
         android:layout_width="match_parent"
         android:background="@drawable/btn_background"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:text="Register" />
@@ -130,10 +130,10 @@
 
     <Button
         android:id="@+id/btn_home"
-        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
+        android:background="@android:color/transparent"
         android:hint="Already Registered? Click Here" />
 
 
