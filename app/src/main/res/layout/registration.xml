@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:id="@+id/registrationLayout"
-    android:background="@drawable/background"
+    android:background="@drawable/artboard2"
     android:layout_height="match_parent">
 
 
@@ -14,14 +14,17 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:padding="20dp"
-        android:text="New Registration" />
+        android:textSize="26dp"
+        android:text="Create  Your  Account"
+        android:textAllCaps="true"
+        android:fontFamily="sans-serif-condensed-medium"/>
 
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/edit_text_background"
@@ -102,27 +105,29 @@
         android:hint="Password"
         android:inputType="textPassword" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/newPassword2"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center_horizontal"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_marginStart="30dp"-->
-<!--        android:layout_marginEnd="30dp"-->
-<!--        android:background="@drawable/edit_text_background"-->
-<!--        android:ems="10"-->
-<!--        android:padding="10dp"-->
-<!--        android:textColorHint="@color/hint_color"-->
-<!--        android:hint="Enter password again"-->
-<!--        android:inputType="textPassword" />-->
+    <EditText
+        android:id="@+id/newPassword2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/edit_text_background"
+        android:ems="10"
+        android:padding="10dp"
+        android:textColorHint="@color/hint_color"
+        android:drawableStart="@drawable/password"
+        android:drawablePadding="7dp"
+        android:hint="Confirm Password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/newRegistration"
         android:layout_width="match_parent"
         android:background="@drawable/btn_background"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:text="Register" />

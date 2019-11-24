@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/homeLayout"
-        android:background="@drawable/background">
+        android:background="@drawable/backgroung"
+        tools:context="com.journaldev.featuresoftextinputlayout.MainActivity">
 
         <TextView
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/edit_text_background"
             android:ems="10"
             android:hint="Mobile Number"
