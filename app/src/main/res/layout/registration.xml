@@ -70,23 +70,36 @@
         android:hint="Email"
         android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/clgLocation"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+    <EditText
+        android:id="@+id/clgLocation"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="7dp"
         android:background="@drawable/edit_text_background"
+        android:drawableStart="@drawable/map"
+        android:drawablePadding="8dp"
         android:ems="10"
+        android:hint="Looking for college in"
         android:inputType="text"
         android:padding="10dp"
-        android:drawableStart="@drawable/map"
-        android:drawablePadding="10dp"
-        android:textColorHint="@color/hint_color"
-        android:hint="Looking for college in"
-         />
+        android:textColorHint="@color/hint_color" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/ic_my_location_black_24dp"
+            android:background="@drawable/edit_text_background"
+            android:foregroundGravity="center"
+            android:layout_marginEnd="30dp" />
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/newPassword1"
