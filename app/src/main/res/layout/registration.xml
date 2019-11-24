@@ -67,7 +67,10 @@
         android:hint="Email"
         android:inputType="textEmailAddress" />
 
-    <EditText
+    <RelativeLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+        <EditText
         android:id="@+id/clgLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,6 +87,19 @@
         android:textColorHint="@color/hint_color"
         android:hint="Looking for college in"
          />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/clgLocation"
+            android:layout_alignBottom="@+id/clgLocation"
+            android:layout_alignRight="@+id/clgLocation"
+            android:src="@drawable/location" />
+
+
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/newPassword1"
