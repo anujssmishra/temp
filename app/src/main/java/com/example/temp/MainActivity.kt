@@ -17,6 +17,8 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.widget.EditText
+import kotlinx.android.synthetic.main.activity_otp.*
+import kotlinx.android.synthetic.main.registration.btn_home
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +34,10 @@ class MainActivity : AppCompatActivity() {
         btn_home.setOnClickListener {
             showHome()
         }
+
+//        newRegistration.setOnClickListener {
+//            showVerification()
+//        }
 
         btn_next.setOnClickListener() {
             val intent = Intent(this, MapsActivity::class.java)
@@ -60,5 +66,9 @@ class MainActivity : AppCompatActivity() {
         homeLayout.visibility=View.VISIBLE
     }
 
+//    private fun showVerification(){
+//        registrationLayout.visibility=View.GONE
+//        verificationLayout.visibility=View.VISIBLE
+//    }
 
 }
