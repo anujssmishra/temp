@@ -35,9 +35,18 @@ class MainActivity : AppCompatActivity() {
             showHome()
         }
 
-//        newRegistration.setOnClickListener {
-//            showVerification()
-//        }
+        newRegistration.setOnClickListener {
+            val name: String = (findViewById(R.id.name) as EditText).text.toString()
+            val mob: String = (findViewById(R.id.mobileNumber2) as EditText).text.toString()
+            val email: String = (findViewById(R.id.email) as EditText).text.toString()
+            val clgloc: String = (findViewById(R.id.clgLocation) as EditText).text.toString()
+            val pass1: String = (findViewById(R.id.newPassword1) as EditText).text.toString()
+            val pass2: String = (findViewById(R.id.newPassword2) as EditText).text.toString()
+            if ((name.trim().length<=0) or (mob.trim().length<=0) or (email.trim().length<=0) or (clgloc.trim().length<=0) or (pass1.trim().length<=0) or (pass2.trim().length<=0))
+                Toast.makeText(applicationContext, "Username or Password not specified!", Toast.LENGTH_SHORT).show()
+            else
+                showVerification()
+        }
 
         btn_next.setOnClickListener() {
             val intent = Intent(this, MapsActivity::class.java)
@@ -66,9 +75,9 @@ class MainActivity : AppCompatActivity() {
         homeLayout.visibility=View.VISIBLE
     }
 
-//    private fun showVerification(){
-//        registrationLayout.visibility=View.GONE
-//        verificationLayout.visibility=View.VISIBLE
-//    }
+    private fun showVerification(){
+        registrationLayout.visibility=View.GONE
+        verificationLayout.visibility=View.VISIBLE
+    }
 
 }
