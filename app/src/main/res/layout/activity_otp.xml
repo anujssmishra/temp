@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:id="@+id/verificationLayout"
     android:background="@drawable/artboard2"
-    android:layout_height="match_parent"
     tools:context=".OTPActivity">
 
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -18,10 +20,17 @@
         android:padding="20dp"
         android:text="Verification Code "
         android:textAllCaps="true"
-        android:textSize="26dp" />
+        android:textSize="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.09" />
 
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -29,20 +38,28 @@
         android:gravity="center"
         android:padding="15dp"
         android:text="Please confirm the verification code sent to +91 XXXXXXXXXX"
-        android:textSize="16dp"/>
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="154dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
 
         <EditText
             android:id="@+id/verification_code1"
             android:layout_width="52dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="60dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/edit_text_background"
             android:ems="1"
@@ -55,7 +72,6 @@
             android:layout_width="52dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="60dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/edit_text_background"
             android:ems="10"
@@ -68,7 +84,6 @@
             android:layout_width="52dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="60dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/edit_text_background"
             android:ems="10"
@@ -81,7 +96,6 @@
             android:layout_width="52dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="60dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/edit_text_background"
             android:ems="10"
@@ -93,18 +107,27 @@
 
     <Button
         android:id="@+id/conformation"
-        android:layout_gravity="center_horizontal"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
         android:background="@drawable/btn_background"
-        android:text="Confirm Registration" />
+        android:text="Confirm Registration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <Button
         android:id="@+id/btn_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:background="@android:color/transparent"
-        android:hint="Didn't get code? Click here to RESENT! "/>
+        android:hint="Didn't get code? Click here to RESENT! "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/conformation" />
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
