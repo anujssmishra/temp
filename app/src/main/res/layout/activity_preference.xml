@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/artboard2"
     android:orientation="vertical"
-    tools:context=".preference">
+    tools:context=".PreferenceActivity">
 
     <TextView
         android:id="@+id/textView"
