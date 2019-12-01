@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
 
 
 class OTPActivity : AppCompatActivity() {
@@ -18,6 +19,7 @@ class OTPActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp)
 
+        val context = this
         //moving cursor forward
         verification_code1.setOnKeyListener { _, keyCode, event ->
             if (keyCode in 7..16) {
@@ -29,7 +31,7 @@ class OTPActivity : AppCompatActivity() {
             if (keyCode in 7..16) {
                 verification_code3.requestFocus()
             }
-            if(keyCode == 67) {
+            if (keyCode == 67) {
                 verification_code1.requestFocus()
             }
             false
@@ -38,7 +40,7 @@ class OTPActivity : AppCompatActivity() {
             if (keyCode in 7..16) {
                 verification_code4.requestFocus()
             }
-            if(keyCode == 67) {
+            if (keyCode == 67) {
                 verification_code2.requestFocus()
             }
             false
@@ -51,8 +53,16 @@ class OTPActivity : AppCompatActivity() {
         }
 
         confirmation.setOnClickListener {
-            val intent = Intent(this, QualificationActivity::class.java)
-            startActivity(intent)
+            if (verification_code1.text.toString().length > 0 &&
+                verification_code2.text.toString().length > 0 &&
+                verification_code3.text.toString().length > 0 &&
+                verification_code4.text.toString().length > 0) {
+                val intent = Intent(this, QualificationActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(context, "Please fill all the details!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
