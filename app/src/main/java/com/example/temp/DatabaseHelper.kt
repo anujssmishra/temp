@@ -38,7 +38,7 @@ class DatabaseHelper(var context: Context):SQLiteOpenHelper(context, dbname, nul
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        db?.execSQL("drop table if exists Registration")
     }
 
     fun insertRegistrationData(user : DataInsert) {
@@ -49,6 +49,7 @@ class DatabaseHelper(var context: Context):SQLiteOpenHelper(context, dbname, nul
         cv.put(email, user.email)
         cv.put(password, user.password)
         var result = db.insert(table, null, cv)
+        db.close()
         if(result == -1.toLong()){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
@@ -63,6 +64,7 @@ class DatabaseHelper(var context: Context):SQLiteOpenHelper(context, dbname, nul
         cv.put(jee, user.jee)
         cv.put(cet, user.cet)
         var result = db.insert(table, null, cv)
+        db.close()
         if(result == -1.toLong()){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
@@ -77,11 +79,26 @@ class DatabaseHelper(var context: Context):SQLiteOpenHelper(context, dbname, nul
         cv.put(pref1, user.pref1)
         cv.put(pref2, user.pref2)
         var result = db.insert(table, null, cv)
+        db.close()
         if(result == -1.toLong()){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
         else{
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun checkLogin(phno : Long, password : String): Boolean {
+        val db = this.writableDatabase
+        val query = "select * from Registration where Phone_Number='$phno' and Password='$password'"
+        val cursor = db.rawQuery(query, null)
+        if(cursor.count<=0){
+            cursor.close()
+            return false
+        }
+        else{
+            cursor.close()
+            return true
         }
     }
 
