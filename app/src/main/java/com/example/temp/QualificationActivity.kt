@@ -12,6 +12,7 @@ class QualificationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qualification)
 
+        val intent = Intent(this, PreferenceActivity::class.java)
         var context = this
         qualNext.setOnClickListener {
             if(jeemarks.text.toString().length>0 && cetmarks.text.toString().length>0){
@@ -20,12 +21,15 @@ class QualificationActivity : AppCompatActivity() {
                 var db = DatabaseHelper(context)
                 db.insertQualificationData(ob)
 
-                val intent = Intent(this, PreferenceActivity::class.java)
                 startActivity(intent)
             }
             else{
                 Toast.makeText(context, "Please fill all the details!", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        qualSkip.setOnClickListener {
+            startActivity(intent)
         }
     }
 }

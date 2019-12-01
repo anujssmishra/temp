@@ -1,5 +1,6 @@
 package com.example.temp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -27,6 +28,14 @@ class PreferenceActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         preference1.adapter = adapter
         preference2.adapter = adapter
+
+        val intent = Intent(this, MapsActivity::class.java)
+        prefNext.setOnClickListener {
+            startActivity(intent)
+        }
+        prefSkip.setOnClickListener {
+            startActivity(intent)
+        }
     }
 
     fun getValues(view: View){

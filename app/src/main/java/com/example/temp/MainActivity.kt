@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 mobileNumber2.text.toString().length > 0 &&
                 email.text.toString().length > 0 &&
                 newPassword1.text.toString().length > 0) {
-                if (newPassword1.text.toString().equals(newPassword2.text.toString())) {
+                if (newPassword1.text.toString().equals(newPassword2.text.toString()) && newPassword1.text.toString().length>=8) {
                     var ob = DataInsert()
                     ob.registrationInsert(
                         name.text.toString(),
@@ -52,6 +52,12 @@ class MainActivity : AppCompatActivity() {
                     db.insertRegistrationData(ob)
                     val intent = Intent(this, OTPActivity::class.java)
                     startActivity(intent)
+                }
+                else if(mobileNumber2.text.toString().length != 10){
+                    Toast.makeText(context, "Mobile number too short", Toast.LENGTH_SHORT).show()
+                }
+                else if(newPassword1.text.toString().length < 8){
+                    Toast.makeText(context, "Password should be at least 8 characters long", Toast.LENGTH_SHORT).show()
                 }
                 else{
                     Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
