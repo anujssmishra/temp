@@ -62,8 +62,7 @@ class MainActivity : AppCompatActivity() {
                 else{
                     Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(context, "Please fill all the details!", Toast.LENGTH_SHORT).show()
             }
 
@@ -84,8 +83,18 @@ class MainActivity : AppCompatActivity() {
                     "Username or Password not specified!",
                     Toast.LENGTH_SHORT
                 ).show()
-            else
-                startActivity(intent)
+            else {
+//                val phno: String = mobileNumber.text.toString()
+//                val password: String = password.text.toString()
+                val ob = DatabaseHelper(context)
+//                val check: Boolean = ob.checkLogin(phno.toLong(), password)
+                if (ob.checkLogin(mobileNumber.text.toString().toLong(), password.text.toString()) == true) {
+                    startActivity(intent)
+                }
+                else{
+                    Toast.makeText(context, "User not found!", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
     }
