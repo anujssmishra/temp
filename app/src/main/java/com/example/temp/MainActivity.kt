@@ -34,9 +34,23 @@ class MainActivity : AppCompatActivity() {
             showHome()
         }
 
+        val context = this
         newRegistration.setOnClickListener {
-            val intent = Intent(this, OTPActivity::class.java)
-            startActivity(intent)
+            if(name.text.toString().length>0 &&
+                    mobileNumber2.text.toString().length>0 &&
+                    email.text.toString().length>0 &&
+                    newPassword1.text.toString().length>0){
+                var user = DataInsert(name.text.toString(), mobileNumber2.text.toString().toLong(), email.text.toString(), newPassword1.text.toString(), 0,0, "", "")
+                var db = DatabaseHelper(context)
+                db.insertData(user)
+                val intent = Intent(this, OTPActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(context, "Please fill all the details!", Toast.LENGTH_SHORT).show()
+            }
+
+
         }
 
         btn_next.setOnClickListener() {
