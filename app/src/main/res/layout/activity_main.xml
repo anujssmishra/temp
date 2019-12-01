@@ -35,7 +35,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_background"
-        android:ems="10"
+        android:maxLength="10"
         android:hint="Mobile Number"
         android:inputType="phone"
         android:padding="10dp"
