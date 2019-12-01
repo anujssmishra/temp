@@ -11,13 +11,21 @@ class DataInsert{
     var pref1 : String = ""
     var pref2 : String = ""
 
-    constructor(names : String, phno : Long, email : String, password : String, jee : Int, cet : Int, pref1 : String, pref2 : String){
+    constructor() {}
+
+    fun registrationInsert(names : String, phno : Long, email : String, password : String){
         this.names = names
         this.phno = phno
         this.email = email
         this.password = password
+    }
+
+    fun qualificationInsert(jee : Int, cet : Int){
         this.jee = jee
         this.cet = cet
+    }
+
+    fun preferenceInsert(pref1 : String, pref2 : String){
         this.pref1 = pref1
         this.pref2 = pref2
     }

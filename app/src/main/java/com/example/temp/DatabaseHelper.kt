@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import com.example.temp.DataInsert as DataInsert
 
 const val dbname = "DTE_user_data"
 const val table = "Registration"
@@ -17,6 +18,7 @@ const val cet = "MHTCET_Marks"
 const val pref1 = "Preference_1"
 const val pref2 = "Preference_2"
 
+//var ob = DataInsert()
 
 
 class DatabaseHelper(var context: Context):SQLiteOpenHelper(context, dbname, null, 1){
@@ -39,15 +41,39 @@ class DatabaseHelper(var context: Context):SQLiteOpenHelper(context, dbname, nul
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun insertData(user : DataInsert) {
+    fun insertRegistrationData(user : DataInsert) {
         val db = this.writableDatabase
         var cv = ContentValues()
         cv.put(names, user.names)
         cv.put(phno, user.phno)
         cv.put(email, user.email)
         cv.put(password, user.password)
+        var result = db.insert(table, null, cv)
+        if(result == -1.toLong()){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun insertQualificationData(user : DataInsert) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
         cv.put(jee, user.jee)
         cv.put(cet, user.cet)
+        var result = db.insert(table, null, cv)
+        if(result == -1.toLong()){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun insertPreferenceData(user : DataInsert) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
         cv.put(pref1, user.pref1)
         cv.put(pref2, user.pref2)
         var result = db.insert(table, null, cv)

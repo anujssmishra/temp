@@ -46,7 +46,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/newRegistration"
+        android:id="@+id/prefNext"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="108dp"
@@ -58,16 +58,15 @@
         app:layout_constraintTop_toBottomOf="@+id/preference2" />
 
     <Button
-        android:id="@+id/btn_home"
+        android:id="@+id/prefSkip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:background="@android:color/transparent"
         android:hint="Skip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newRegistration" />
+        app:layout_constraintTop_toBottomOf="@+id/prefNext" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

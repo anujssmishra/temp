@@ -40,9 +40,10 @@ class MainActivity : AppCompatActivity() {
                     mobileNumber2.text.toString().length>0 &&
                     email.text.toString().length>0 &&
                     newPassword1.text.toString().length>0){
-                var user = DataInsert(name.text.toString(), mobileNumber2.text.toString().toLong(), email.text.toString(), newPassword1.text.toString(), 0,0, "", "")
+                var ob = DataInsert()
+                ob.registrationInsert(name.text.toString(), mobileNumber2.text.toString().toLong(), email.text.toString(), newPassword1.text.toString())
                 var db = DatabaseHelper(context)
-                db.insertData(user)
+                db.insertRegistrationData(ob)
                 val intent = Intent(this, OTPActivity::class.java)
                 startActivity(intent)
             }
