@@ -36,18 +36,28 @@ class MainActivity : AppCompatActivity() {
 
         val context = this
         newRegistration.setOnClickListener {
-            if(name.text.toString().length>0 &&
-                    mobileNumber2.text.toString().length>0 &&
-                    email.text.toString().length>0 &&
-                    newPassword1.text.toString().length>0){
-                var ob = DataInsert()
-                ob.registrationInsert(name.text.toString(), mobileNumber2.text.toString().toLong(), email.text.toString(), newPassword1.text.toString())
-                var db = DatabaseHelper(context)
-                db.insertRegistrationData(ob)
-                val intent = Intent(this, OTPActivity::class.java)
-                startActivity(intent)
+            if (name.text.toString().length > 0 &&
+                mobileNumber2.text.toString().length > 0 &&
+                email.text.toString().length > 0 &&
+                newPassword1.text.toString().length > 0) {
+                if (newPassword1.text.toString().equals(newPassword2.text.toString())) {
+                    var ob = DataInsert()
+                    ob.registrationInsert(
+                        name.text.toString(),
+                        mobileNumber2.text.toString().toLong(),
+                        email.text.toString(),
+                        newPassword1.text.toString()
+                    )
+                    var db = DatabaseHelper(context)
+                    db.insertRegistrationData(ob)
+                    val intent = Intent(this, OTPActivity::class.java)
+                    startActivity(intent)
+                }
+                else{
+                    Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                }
             }
-            else{
+            else {
                 Toast.makeText(context, "Please fill all the details!", Toast.LENGTH_SHORT).show()
             }
 
@@ -62,23 +72,27 @@ class MainActivity : AppCompatActivity() {
 
             val mob: String = (findViewById(R.id.mobileNumber) as EditText).text.toString()
             val pass: String = (findViewById(R.id.password) as EditText).text.toString()
-            if ((mob.trim().length<=0) or (pass.trim().length<=0))
-                Toast.makeText(applicationContext, "Username or Password not specified!", Toast.LENGTH_SHORT).show()
+            if ((mob.trim().length <= 0) or (pass.trim().length <= 0))
+                Toast.makeText(
+                    applicationContext,
+                    "Username or Password not specified!",
+                    Toast.LENGTH_SHORT
+                ).show()
             else
                 startActivity(intent)
         }
 
-        }
+    }
 
-    private fun showRegistration(){
-        homeLayout.visibility=View.GONE
-        registrationLayout.visibility=View.VISIBLE
+    private fun showRegistration() {
+        homeLayout.visibility = View.GONE
+        registrationLayout.visibility = View.VISIBLE
 
     }
 
-    private fun showHome(){
-        registrationLayout.visibility=View.GONE
-        homeLayout.visibility=View.VISIBLE
+    private fun showHome() {
+        registrationLayout.visibility = View.GONE
+        homeLayout.visibility = View.VISIBLE
     }
 
 }
