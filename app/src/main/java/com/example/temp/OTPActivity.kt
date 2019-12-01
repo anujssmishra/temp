@@ -21,7 +21,7 @@ class OTPActivity : AppCompatActivity() {
                 s: CharSequence, start: Int, before: Int,
                 count: Int
             ) {
-                val textlength1: Int = verification_code1.getText().length
+                val textlength1: Int = verification_code1.text.toString().length
                 if (textlength1 >= 1) {
                     verification_code2.requestFocus()
                 }
@@ -42,9 +42,17 @@ class OTPActivity : AppCompatActivity() {
                 s: CharSequence, start: Int, before: Int,
                 count: Int
             ) {
-                val textlength2: Int = verification_code2.getText().length
+                val textlength2: Int = verification_code2.text.toString().length
                 if (textlength2 >= 1) {
                     verification_code3.requestFocus()
+                }
+                else if(textlength2 == 0) {
+                    verification_code2.setOnKeyListener { _, keyCode, event ->
+                        if (keyCode == 67) {
+                            verification_code1.requestFocus()
+                        }
+                        false
+                    }
                 }
             }
 
@@ -63,9 +71,17 @@ class OTPActivity : AppCompatActivity() {
                 s: CharSequence, start: Int, before: Int,
                 count: Int
             ) {
-                val textlength2: Int = verification_code3.getText().length
-                if (textlength2 >= 1) {
+                val textlength3: Int = verification_code3.text.toString().length
+                if (textlength3 >= 1) {
                     verification_code4.requestFocus()
+                }
+                else if(textlength3 == 0) {
+                    verification_code3.setOnKeyListener { _, keyCode, event ->
+                        if (keyCode == 67) {
+                            verification_code2.requestFocus()
+                        }
+                        false
+                    }
                 }
             }
 
@@ -78,6 +94,14 @@ class OTPActivity : AppCompatActivity() {
             ) { // TODO Auto-generated method stub
             }
         })
+
+        verification_code4.setOnKeyListener { _, keyCode, event ->
+                if (keyCode == 67) {
+                    verification_code3.requestFocus()
+                }
+                false
+            }
+
 
         confirmation.setOnClickListener {
             if (verification_code1.text.toString().length > 0 &&
