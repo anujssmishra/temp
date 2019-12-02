@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 mobileNumber2.text.toString().length > 0 &&
                 email.text.toString().length > 0 &&
                 newPassword1.text.toString().length > 0) {
-                if (newPassword1.text.toString().equals(newPassword2.text.toString()) && newPassword1.text.toString().length>=8) {
+                if (newPassword1.text.toString().equals(newPassword2.text.toString()) && newPassword1.text.toString().length>=8 && newPassword1.text.toString().length<=32) {
                     var ob = DataInsert()
                     ob.registrationInsert(
                         name.text.toString(),
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 else if(mobileNumber2.text.toString().length != 10){
                     Toast.makeText(context, "Mobile number too short", Toast.LENGTH_SHORT).show()
                 }
-                else if(newPassword1.text.toString().length < 8 || newPassword1.text.toString().length >32){
+                else if(newPassword1.text.toString().length < 8 || newPassword1.text.toString().length > 32){
                     Toast.makeText(context, "Password should be 8 to 32 characters long", Toast.LENGTH_SHORT).show()
                 }
                 else{
