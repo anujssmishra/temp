@@ -56,8 +56,8 @@ class MainActivity : AppCompatActivity() {
                 else if(mobileNumber2.text.toString().length != 10){
                     Toast.makeText(context, "Mobile number too short", Toast.LENGTH_SHORT).show()
                 }
-                else if(newPassword1.text.toString().length < 8){
-                    Toast.makeText(context, "Password should be at least 8 characters long", Toast.LENGTH_SHORT).show()
+                else if(newPassword1.text.toString().length < 8 || newPassword1.text.toString().length >32){
+                    Toast.makeText(context, "Password should be 8 to 32 characters long", Toast.LENGTH_SHORT).show()
                 }
                 else{
                     Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
