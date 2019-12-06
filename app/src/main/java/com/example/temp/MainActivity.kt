@@ -17,10 +17,22 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.widget.EditText
+import com.android.volley.AuthFailureError
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.StringRequest
 import kotlinx.android.synthetic.main.registration.btn_home
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
+
+    private var nameOfPerson : EditText? = null
+    private var phn : EditText? = null
+    private var e_mail : EditText? = null
+    private var passwd : EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +45,13 @@ class MainActivity : AppCompatActivity() {
         btn_home.setOnClickListener {
             showHome()
         }
+
+        //********
+        nameOfPerson = findViewById(R.id.name) as EditText
+        phn = findViewById(R.id.mobileNumber2) as EditText
+        e_mail = findViewById(R.id.email) as EditText
+        passwd = findViewById(R.id.newPassword1) as EditText
+        //********
 
         val context = this
         newRegistration.setOnClickListener {
@@ -65,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(context, "Please fill all the details!", Toast.LENGTH_SHORT).show()
             }
-
+            addArtist()
 
         }
 
@@ -97,6 +116,44 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun addArtist() {
+        val name1 = nameOfPerson?.text.toString()
+        val phone = phn?.text.toString()
+        val email1 = e_mail?.text.toString()
+        val pass = passwd?.text.toString()
+        Toast.makeText(this, pass, Toast.LENGTH_SHORT).show()
+
+        val stringRequest = object : StringRequest(Request.Method.POST, EndPoints.URL_ROOT,
+            Response.Listener<String> { response ->
+                try {
+                    val obj = JSONObject(response)
+                    Toast.makeText(applicationContext, obj.getString("message"), Toast.LENGTH_LONG)
+                        .show()
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            object : Response.ErrorListener {
+                override fun onErrorResponse(volleyError: VolleyError) {
+                    Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params.put("Name", name1)
+                params.put("Phone_Number", phone)
+                params.put("Email", email1)
+                params.put("Password", pass)
+                return params
+            }
+        }
+
+        //adding request to queue
+        VolleySingleton.instance?.addToRequestQueue(stringRequest)
     }
 
     private fun showRegistration() {
