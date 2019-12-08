@@ -18,8 +18,6 @@ const val cet = "MHTCET_Marks"
 const val pref1 = "Preference_1"
 const val pref2 = "Preference_2"
 
-//var ob = DataInsert()
-
 
 class DatabaseHelper(var context: Context):SQLiteOpenHelper(context, dbname, null, 1){
 
@@ -46,16 +44,16 @@ class DatabaseHelper(var context: Context):SQLiteOpenHelper(context, dbname, nul
         var cv = ContentValues()
         cv.put(names, user.names)
         cv.put(phno, user.phno)
-        cv.put(email, user.email)
+        cv.put(email, user.email1)
         cv.put(password, user.password)
         var result = db.insert(table, null, cv)
         db.close()
-        if(result == -1.toLong()){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-        }
-        else{
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-        }
+//        if(result == -1.toLong()){
+//            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+//        }
+//        else{
+//            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     fun insertQualificationData(user : DataInsert) {
@@ -65,12 +63,12 @@ class DatabaseHelper(var context: Context):SQLiteOpenHelper(context, dbname, nul
         cv.put(cet, user.cet)
         var result = db.insert(table, null, cv)
         db.close()
-        if(result == -1.toLong()){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-        }
-        else{
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-        }
+//        if(result == -1.toLong()){
+//            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+//        }
+//        else{
+//            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     fun insertPreferenceData(user : DataInsert) {
@@ -80,12 +78,12 @@ class DatabaseHelper(var context: Context):SQLiteOpenHelper(context, dbname, nul
         cv.put(pref2, user.pref2)
         var result = db.insert(table, null, cv)
         db.close()
-        if(result == -1.toLong()){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-        }
-        else{
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-        }
+//        if(result == -1.toLong()){
+//            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+//        }
+//        else{
+//            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     fun checkLogin(phno : Long, password : String): Boolean {

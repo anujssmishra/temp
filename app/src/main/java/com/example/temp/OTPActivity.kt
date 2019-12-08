@@ -108,8 +108,12 @@ class OTPActivity : AppCompatActivity() {
                 verification_code2.text.toString().length > 0 &&
                 verification_code3.text.toString().length > 0 &&
                 verification_code4.text.toString().length > 0) {
-                val intent = Intent(this, QualificationActivity::class.java)
-                startActivity(intent)
+
+                //starting new activity : QualificationActivity
+                val phn_no = intent.getStringExtra("Phone")?.toString()
+                val intent1 = Intent(this@OTPActivity, QualificationActivity::class.java)
+                intent1.putExtra("Phone", phn_no)
+                startActivity(intent1)
             }
             else{
                 val context = this
