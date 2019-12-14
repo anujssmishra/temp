@@ -2,10 +2,15 @@ package com.example.temp
 
 //import androidx.core.app.ComponentActivity
 //import androidx.core.app.ComponentActivity.ExtraData
+
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,16 +25,21 @@ import kotlinx.android.synthetic.main.registration.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
 
     private val URLstring = "http://webstore.apsit.org.in/engg_admissions/send_data.php"
+    var genderVal : String? = null
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val b1 = findViewById<Button>(R.id.btn1)
+        val b2 = findViewById<Button>(R.id.btn2)
+        val b3 = findViewById<Button>(R.id.btn3)
 
         showHome()
         register.setOnClickListener {
@@ -39,12 +49,40 @@ class MainActivity : AppCompatActivity() {
             showHome()
         }
 
+        btn1.setOnClickListener {
+            b1.setBackgroundResource(R.drawable.gender_on_click)
+            b2.setBackgroundResource(R.drawable.edit_text_background)
+            b3.setBackgroundResource(R.drawable.edit_text_background)
+            b1.setTextColor(Color.parseColor("#FFFFFF"))
+            b2.setTextColor(Color.parseColor("#80FFFFFF"))
+            b3.setTextColor(Color.parseColor("#80FFFFFF"))
+            genderVal = "Male"
+        }
+        btn2.setOnClickListener {
+            b1.setBackgroundResource(R.drawable.edit_text_background)
+            b2.setBackgroundResource(R.drawable.gender_on_click)
+            b3.setBackgroundResource(R.drawable.edit_text_background)
+            b2.setTextColor(Color.parseColor("#FFFFFF"))
+            b1.setTextColor(Color.parseColor("#80FFFFFF"))
+            b3.setTextColor(Color.parseColor("#80FFFFFF"))
+            genderVal = "Female"
+        }
+        btn3.setOnClickListener {
+            b1.setBackgroundResource(R.drawable.edit_text_background)
+            b2.setBackgroundResource(R.drawable.edit_text_background)
+            b3.setBackgroundResource(R.drawable.gender_on_click)
+            b3.setTextColor(Color.parseColor("#FFFFFF"))
+            b1.setTextColor(Color.parseColor("#80FFFFFF"))
+            b2.setTextColor(Color.parseColor("#80FFFFFF"))
+            genderVal = "Others"
+        }
 
         val context = this
         newRegistration.setOnClickListener {
 
             //checking if the fields are empty
             if (name.text.toString().length > 0 &&
+                genderVal!!.length > 0 &&
                 mobileNumber2.text.toString().length > 0 &&
                 email.text.toString().length > 0 &&
                 newPassword1.text.toString().length > 0) {
@@ -66,10 +104,15 @@ class MainActivity : AppCompatActivity() {
                     //starting OTP activity
                     val intent0 = Intent(this, OTPActivity::class.java)
                     intent0.putExtra("Phone", mobileNumber2.text.toString())
-                    if (requestJSON(mobileNumber2.text.toString(), email.text.toString()))
+                    if (requestJSON(mobileNumber2.text.toString(), email.text.toString())) {
+                        addArtist()
                         startActivity(intent0)
+                    }
                     else
                         Toast.makeText(this, "Mobile Number or Email already exists!", Toast.LENGTH_SHORT).show()
+                }
+                else if (!(genderVal!!.length > 0)) {
+                    Toast.makeText(context, "Please specify Gender", Toast.LENGTH_SHORT).show()
                 }
                 else if(mobileNumber2.text.toString().length != 10){
                     Toast.makeText(context, "Mobile number too short", Toast.LENGTH_SHORT).show()
@@ -84,7 +127,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(context, "Please fill all the details!", Toast.LENGTH_SHORT).show()
             }
-            addArtist()
         }
 
         btn_next.setOnClickListener() {
@@ -134,6 +176,7 @@ class MainActivity : AppCompatActivity() {
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
                 params.put("Name", name.text.toString())
+                params.put("Gender", genderVal.toString())
                 params.put("Phone_Number", mobileNumber2.text.toString())
                 params.put("Email", email.text.toString())
                 params.put("Password", newPassword1.text.toString())
@@ -198,8 +241,10 @@ class MainActivity : AppCompatActivity() {
                             }
                             for (j in abc.indices) {
                                 rtn = (abc[j].equals(mob) || abc.equals(e_mail))
-                                if (rtn)
+                                if (rtn) {
+                                    rtn = !rtn
                                     break
+                                }
                             }
                         } else {
                             Toast.makeText(
@@ -221,7 +266,7 @@ class MainActivity : AppCompatActivity() {
         val requestQueue = Volley.newRequestQueue(this)
         //adding the string request to request queue
         requestQueue.add(stringRequest)
-        return !rtn
+        return rtn
     }
 
 }
