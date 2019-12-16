@@ -51,6 +51,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, RegistrationActivity::class.java))
         }
 
+        button2.setOnClickListener {
+            startActivity(Intent(this, ResetDetailsActivity::class.java))
+        }
+
     }
 
 //    fun getUsers() {

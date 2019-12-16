@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">temp</string>
+    <string name="app_name">Infinity</string>
     <string name="title_activity_maps">Map</string>
 
     <string name="preference">Android spinner</string>

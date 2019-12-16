@@ -117,6 +117,10 @@ class RegistrationActivity : AppCompatActivity() {
                 Toast.makeText(context, "Please fill all the details!", Toast.LENGTH_SHORT).show()
             }
         }
+
+        btn_home.setOnClickListener {
+            startActivity(Intent(context, MainActivity::class.java))
+        }
     }
 
     private fun addArtist() {
