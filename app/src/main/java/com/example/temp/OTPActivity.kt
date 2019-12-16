@@ -111,13 +111,13 @@ class OTPActivity : AppCompatActivity() {
 
                 //starting new activity : QualificationActivity
                 val phn_no = intent.getStringExtra("Phone")?.toString()
-                val phn = intent.getStringExtra("ResetFlag")
-                var intent1 : Intent? = null
-                if (phn.equals("1")) {
-                    val intent1 = Intent(this@OTPActivity, ResetDetailsActivity::class.java)
+                val flag = intent.getStringExtra("ResetFlag")
+                var intent1: Intent
+                if (flag.equals("1")) {
+                    intent1 = Intent(this@OTPActivity, ResetDetailsActivity::class.java)
                 }
                 else {
-                    val intent1 = Intent(this@OTPActivity, QualificationActivity::class.java)
+                    intent1 = Intent(this@OTPActivity, QualificationActivity::class.java)
                 }
                 intent1?.putExtra("Phone", phn_no)
                 startActivity(intent1)

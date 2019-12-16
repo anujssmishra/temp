@@ -15,7 +15,9 @@ class ResetDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reset_details)
 
         val phn = intent.getStringExtra("Phone")
+        System.out.println("Phone number received : "+phn)
         if(phn != null){
+            System.out.println("I am inside of if statement")
             resetPhone.visibility = View.GONE
             resetPass.visibility = View.VISIBLE
             confirmation.setOnClickListener {
@@ -28,6 +30,7 @@ class ResetDetailsActivity : AppCompatActivity() {
                 if (phone.text.toString().length == 10) {
                     val intent0 = Intent(this, OTPActivity::class.java)
                     intent0.putExtra("ResetFlag", "1")
+                    intent0.putExtra("Phone", phone.text.toString())
                     startActivity(intent0)
                 } else {
                     Toast.makeText(this, "Phone Number invalid", Toast.LENGTH_SHORT).show()
