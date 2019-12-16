@@ -112,11 +112,13 @@ class OTPActivity : AppCompatActivity() {
                 //starting new activity : QualificationActivity
                 val phn_no = intent.getStringExtra("Phone")?.toString()
                 val flag = intent.getStringExtra("ResetFlag")
+                System.out.println("Going well untill... and flag = "+flag)
                 var intent1: Intent
-                if (flag.equals("1")) {
+                if (flag != null) {
                     intent1 = Intent(this@OTPActivity, ResetDetailsActivity::class.java)
                 }
                 else {
+                    System.out.println("Starting qualification activity")
                     intent1 = Intent(this@OTPActivity, QualificationActivity::class.java)
                 }
                 intent1?.putExtra("Phone", phn_no)
