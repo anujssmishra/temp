@@ -21,7 +21,9 @@ import org.json.JSONObject
 class RegistrationActivity : AppCompatActivity() {
 
     private val URLstring = "http://webstore.apsit.org.in/engg_admissions/send_data.php"
+    private val URLverify = "http://webstore.apsit.org.in/engg_admissions/verification.php"
     var genderVal : String? = null
+    var rtn : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,16 +91,7 @@ class RegistrationActivity : AppCompatActivity() {
                     )
                     var db = DatabaseHelper(context)
                     db.insertRegistrationData(ob)
-
-                    //starting OTP activity
-                    val intent0 = Intent(this, OTPActivity::class.java)
-                    intent0.putExtra("Phone", mobileNumber2.text.toString())
-                    if (requestJSON(mobileNumber2.text.toString(), email.text.toString())) {
-                        addArtist()
-                        startActivity(intent0)
-                    }
-                    else
-                        Toast.makeText(this, "Mobile Number or Email already exists!", Toast.LENGTH_SHORT).show()
+                    verify()
                 }
                 else if (!(genderVal!!.length > 0)) {
                     Toast.makeText(context, "Please specify Gender", Toast.LENGTH_SHORT).show()
@@ -123,7 +116,7 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun addArtist() {
+    private fun addToDatabase() {
         val stringRequest = object : StringRequest(
             Request.Method.POST, EndPoints.URL_ROOT,
             Response.Listener<String> { response ->
@@ -155,10 +148,52 @@ class RegistrationActivity : AppCompatActivity() {
 
         //adding request to queue
         VolleySingleton.instance?.addToRequestQueue(stringRequest)
+        System.out.println("End of addToDatabase")
     }
 
-    private fun requestJSON(mob : String, e_mail : String): Boolean {
-        var rtn = true
+    private fun verify() {
+        val stringRequest = object : StringRequest(
+            Request.Method.POST, URLverify,
+            Response.Listener<String> { response ->
+                try {
+                    val obj = JSONObject(response)
+                    Toast.makeText(applicationContext, obj.getString("message"), Toast.LENGTH_LONG)
+                        .show()
+                    val code = obj.getString("code")
+                    if (code.equals("success")) {
+                        //starting OTP activity
+                        val intent0 = Intent(this, OTPActivity::class.java)
+                        intent0.putExtra("Phone", mobileNumber2.text.toString())
+                        addToDatabase()
+                        startActivity(intent0)
+                    }
+                    else {
+                        Toast.makeText(this, "User exists", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            object : Response.ErrorListener {
+                override fun onErrorResponse(volleyError: VolleyError) {
+                    Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params.put("Phone_Number", mobileNumber2.text.toString())
+                return params
+            }
+        }
+
+        //adding request to queue
+        VolleySingleton.instance?.addToRequestQueue(stringRequest)
+        System.out.println("End of addToDatabase")
+    }
+
+    private fun getFromDatabase(mob : String, e_mail : String) {
         val stringRequest =
             StringRequest(
                 Request.Method.GET, URLstring,
@@ -178,6 +213,7 @@ class RegistrationActivity : AppCompatActivity() {
                                 rtn = (abc[j].equals(mob) || abc.equals(e_mail))
                                 if (rtn) {
                                     rtn = !rtn
+                                    System.out.println("rtn in if = "+rtn)
                                     break
                                 }
                             }
@@ -201,6 +237,6 @@ class RegistrationActivity : AppCompatActivity() {
         val requestQueue = Volley.newRequestQueue(this)
         //adding the string request to request queue
         requestQueue.add(stringRequest)
-        return rtn
+        System.out.println("End of getFromDatabase")
     }
 }

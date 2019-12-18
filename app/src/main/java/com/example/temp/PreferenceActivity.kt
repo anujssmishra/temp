@@ -36,7 +36,7 @@ class PreferenceActivity : AppCompatActivity() {
 
             //starting new Activity : MapsActivity
             phn_no = intent.getStringExtra("Phone")?.toString()
-            addArtist()
+            addToDatabase()
             startActivity(intent3)
         }
 
@@ -56,7 +56,7 @@ class PreferenceActivity : AppCompatActivity() {
     }
 
 
-    fun addArtist() {
+    fun addToDatabase() {
         val stringRequest = object : StringRequest(
             Request.Method.POST, EndPoints.URL_ROOT,
             Response.Listener<String> { response ->
@@ -78,8 +78,6 @@ class PreferenceActivity : AppCompatActivity() {
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
                 params.put("Phone_Number", phn_no.toString())
-                System.out.println("Phone in Pref : "+phn_no.toString())
-                System.out.println("Pref1 : "+preference1.selectedItem.toString())
                 params.put("Preference_1", ""+preference1.selectedItem.toString())
                 params.put("Preference_2", ""+preference2.selectedItem.toString())
                 return params

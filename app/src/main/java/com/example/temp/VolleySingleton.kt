@@ -6,7 +6,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 
 
-class VolleySingleton : Application() {
+class   VolleySingleton : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
