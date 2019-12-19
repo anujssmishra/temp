@@ -93,12 +93,45 @@ class RegistrationActivity : AppCompatActivity() {
                     //starting OTP activity
                     val intent0 = Intent(this, OTPActivity::class.java)
                     intent0.putExtra("Phone", mobileNumber2.text.toString())
+
+                    //Volley Request
+                    val stringRequest = object : StringRequest(
+                        Request.Method.POST, URLstring,
+                        Response.Listener<String> { response ->
+                            try {
+                                val obj = JSONObject(response)
+                                Toast.makeText(applicationContext, obj.getString("message"), Toast.LENGTH_LONG)
+                                    .show()
+                            } catch (e: JSONException) {
+                                e.printStackTrace()
+                            }
+                        },
+                        object : Response.ErrorListener {
+                            override fun onErrorResponse(volleyError: VolleyError) {
+                                Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG)
+                                    .show()
+                            }
+                        }) {
+                        @Throws(AuthFailureError::class)
+                        override fun getParams(): Map<String, String> {
+                            val params = HashMap<String, String>()
+                            params.put("username", mobileNumber2.text.toString())
+                            params.put("password", newPassword1.text.toString())
+                            return params
+                        }
+                    }
+
                     if (requestJSON(mobileNumber2.text.toString(), email.text.toString())) {
                         addArtist()
                         startActivity(intent0)
                     }
-                    else
-                        Toast.makeText(this, "Mobile Number or Email already exists!", Toast.LENGTH_SHORT).show()
+                    else {
+                        Toast.makeText(
+                            this,
+                            "Mobile Number or Email already exists!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
                 else if (!(genderVal!!.length > 0)) {
                     Toast.makeText(context, "Please specify Gender", Toast.LENGTH_SHORT).show()
@@ -157,50 +190,51 @@ class RegistrationActivity : AppCompatActivity() {
         VolleySingleton.instance?.addToRequestQueue(stringRequest)
     }
 
-    private fun requestJSON(mob : String, e_mail : String): Boolean {
-        var rtn = true
-        val stringRequest =
-            StringRequest(
-                Request.Method.GET, URLstring,
-                Response.Listener { response ->
-                    Log.d("strrrrr", ">>$response")
-                    try { //getting the whole json object from the response
-                        val obj = JSONObject(response)
-                        if (obj.optString("success").toInt() == 1) {
-                            val abc = mutableListOf<String>()
-                            val dataArray = obj.getJSONArray("data")
-                            for (i in 0 until dataArray.length()) {
-                                val dataobj = dataArray.getJSONObject(i)
-                                abc.add(dataobj.getString("Phone_Number"))
-                                abc.add(dataobj.getString("Email"))
-                            }
-                            for (j in abc.indices) {
-                                rtn = (abc[j].equals(mob) || abc.equals(e_mail))
-                                if (rtn) {
-                                    rtn = !rtn
-                                    break
-                                }
-                            }
-                        } else {
-                            Toast.makeText(
-                                this,
-                                obj.optString("message") + "",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
-                    }
-                },
-                Response.ErrorListener { error ->
-                    //displaying the error in toast if occurrs
-                    Toast.makeText(applicationContext, error.message, Toast.LENGTH_SHORT)
-                        .show()
-                })
-        //creating a request queue
-        val requestQueue = Volley.newRequestQueue(this)
-        //adding the string request to request queue
-        requestQueue.add(stringRequest)
-        return rtn
-    }
+//    private fun requestJSON(mob : String, e_mail : String): Boolean {
+//        var rtn = true
+//        System.out.println("At the start of volley")
+//        //creating a request queue
+//        val requestQueue = Volley.newRequestQueue(this@RegistrationActivity)
+//        val stringRequest =
+//            StringRequest(
+//                Request.Method.GET, URLstring,
+//                Response.Listener { response ->
+//                    Log.d("strrrrr", ">>$response")
+//                    try { //getting the whole json object from the response
+//                        val obj = JSONObject(response)
+//                        if (obj.optString("success").toInt() == 1) {
+//                            val abc = mutableListOf<String>()
+//                            val dataArray = obj.getJSONArray("data")
+//                            for (i in 0 until dataArray.length()) {
+//                                val dataobj = dataArray.getJSONObject(i)
+//                                abc.add(dataobj.getString("Phone_Number"))
+//                                abc.add(dataobj.getString("Email"))
+//                            }
+//                            for (j in abc.indices) {
+//                                rtn = (abc[j].equals(mob) || abc.equals(e_mail))
+//                                if (rtn) {
+//                                    rtn = !rtn
+//                                    break
+//                                }
+//                            }
+//                        } else {
+//                            Toast.makeText(
+//                                this,
+//                                obj.optString("message") + "",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                    } catch (e: JSONException) {
+//                        e.printStackTrace()
+//                    }
+//                },
+//                Response.ErrorListener { error ->
+//                    //displaying the error in toast if occurrs
+//                    Toast.makeText(applicationContext, error.message, Toast.LENGTH_SHORT)
+//                        .show()
+//                })
+//        //adding the string request to request queue
+//        requestQueue.add(stringRequest)
+//        return rtn
+//    }
 }
