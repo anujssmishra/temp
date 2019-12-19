@@ -36,7 +36,7 @@ class QualificationActivity : AppCompatActivity() {
                 //starting new activity : PreferenceActivity
                 phn_no = intent.getStringExtra("Phone")?.toString()
                 intent2.putExtra("Phone", phn_no)
-                addArtist()
+                addToDatabase()
                 startActivity(intent2)
             }
             else{
@@ -49,7 +49,7 @@ class QualificationActivity : AppCompatActivity() {
         }
     }
 
-    fun addArtist() {
+    fun addToDatabase() {
         val stringRequest = object : StringRequest(
             Request.Method.POST, EndPoints.URL_ROOT,
             Response.Listener<String> { response ->

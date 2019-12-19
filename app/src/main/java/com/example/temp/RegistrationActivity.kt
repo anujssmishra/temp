@@ -2,26 +2,28 @@ package com.example.temp
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Toast
-import com.android.volley.AuthFailureError
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.VolleyError
+import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.*
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_registration.*
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+
 
 class RegistrationActivity : AppCompatActivity() {
 
     private val URLstring = "http://webstore.apsit.org.in/engg_admissions/send_data.php"
+    private val URLverify = "http://webstore.apsit.org.in/engg_admissions/verification.php"
     var genderVal : String? = null
+    var rtn : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,49 +91,8 @@ class RegistrationActivity : AppCompatActivity() {
                     )
                     var db = DatabaseHelper(context)
                     db.insertRegistrationData(ob)
-
-                    //starting OTP activity
-                    val intent0 = Intent(this, OTPActivity::class.java)
-                    intent0.putExtra("Phone", mobileNumber2.text.toString())
-
-                    //Volley Request
-                    val stringRequest = object : StringRequest(
-                        Request.Method.POST, URLstring,
-                        Response.Listener<String> { response ->
-                            try {
-                                val obj = JSONObject(response)
-                                Toast.makeText(applicationContext, obj.getString("message"), Toast.LENGTH_LONG)
-                                    .show()
-                            } catch (e: JSONException) {
-                                e.printStackTrace()
-                            }
-                        },
-                        object : Response.ErrorListener {
-                            override fun onErrorResponse(volleyError: VolleyError) {
-                                Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG)
-                                    .show()
-                            }
-                        }) {
-                        @Throws(AuthFailureError::class)
-                        override fun getParams(): Map<String, String> {
-                            val params = HashMap<String, String>()
-                            params.put("username", mobileNumber2.text.toString())
-                            params.put("password", newPassword1.text.toString())
-                            return params
-                        }
-                    }
-
-                    if (requestJSON(mobileNumber2.text.toString(), email.text.toString())) {
-                        addArtist()
-                        startActivity(intent0)
-                    }
-                    else {
-                        Toast.makeText(
-                            this,
-                            "Mobile Number or Email already exists!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    addToDatabase()
+                    verify()
                 }
                 else if (!(genderVal!!.length > 0)) {
                     Toast.makeText(context, "Please specify Gender", Toast.LENGTH_SHORT).show()
@@ -156,7 +117,7 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun addArtist() {
+    private fun addToDatabase() {
         val stringRequest = object : StringRequest(
             Request.Method.POST, EndPoints.URL_ROOT,
             Response.Listener<String> { response ->
@@ -188,13 +149,67 @@ class RegistrationActivity : AppCompatActivity() {
 
         //adding request to queue
         VolleySingleton.instance?.addToRequestQueue(stringRequest)
+        System.out.println("End of addToDatabase")
     }
 
-//    private fun requestJSON(mob : String, e_mail : String): Boolean {
-//        var rtn = true
-//        System.out.println("At the start of volley")
-//        //creating a request queue
-//        val requestQueue = Volley.newRequestQueue(this@RegistrationActivity)
+    private fun verify() {
+        val stringRequest = object : StringRequest(
+            Request.Method.POST, URLverify,
+            Response.Listener<String> { response ->
+                try {
+                    val obj = JSONArray(response)
+//                    Toast.makeText(applicationContext, obj.getString(1), Toast.LENGTH_LONG).show()
+                    System.out.println("Above code")
+                    val code = obj.getString(0)
+                    System.out.println("Code is : "+code)
+                    if (code.contains("success")) {
+                        System.out.println("Success")
+                        //starting OTP activity
+                        val intent0 = Intent(this, OTPActivity::class.java)
+                        intent0.putExtra("Phone", mobileNumber2.text.toString())
+                        startActivity(intent0)
+                    }
+                    else {
+                        System.out.println("Failed")
+                        Toast.makeText(this, "User exists", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            object : Response.ErrorListener {
+                override fun onErrorResponse(volleyError: VolleyError) {
+                    System.out.println("Got Response Error from Volley")
+                    Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params.put("Phone_Number", mobileNumber2.text.toString())
+                System.out.println("Sending params")
+                return params
+            }
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String>? {
+                val params =
+                    HashMap<String, String>()
+                val creds = String.format("%s:%s", "USERNAME", "PASSWORD")
+                val auth =
+                    "Basic " + Base64.encodeToString(creds.toByteArray(), Base64.DEFAULT)
+                params["Authorization"] = auth
+                return params
+            }
+        }
+
+        //adding request to queue
+        stringRequest.setRetryPolicy(DefaultRetryPolicy(10000, 10, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT))
+        VolleySingleton.instance?.addToRequestQueue(stringRequest)
+        System.out.println("End of addToDatabase")
+    }
+
+//    private fun getFromDatabase(mob : String, e_mail : String) {
 //        val stringRequest =
 //            StringRequest(
 //                Request.Method.GET, URLstring,
@@ -214,6 +229,7 @@ class RegistrationActivity : AppCompatActivity() {
 //                                rtn = (abc[j].equals(mob) || abc.equals(e_mail))
 //                                if (rtn) {
 //                                    rtn = !rtn
+//                                    System.out.println("rtn in if = "+rtn)
 //                                    break
 //                                }
 //                            }
@@ -233,8 +249,10 @@ class RegistrationActivity : AppCompatActivity() {
 //                    Toast.makeText(applicationContext, error.message, Toast.LENGTH_SHORT)
 //                        .show()
 //                })
+//        //creating a request queue
+//        val requestQueue = Volley.newRequestQueue(this)
 //        //adding the string request to request queue
 //        requestQueue.add(stringRequest)
-//        return rtn
+//        System.out.println("End of getFromDatabase")
 //    }
 }
