@@ -19,7 +19,7 @@ class PDFActivity : AppCompatActivity(), OnPageChangeListener, OnLoadCompleteLis
         setContentView(R.layout.activity_pdf)
 
 
-        pdfView = findViewById(R.id.pdfView) as PDFView
+        pdfView = findViewById<PDFView>(R.id.pdfView)
         displayFromAsset(SAMPLE_FILE)
     }
 
