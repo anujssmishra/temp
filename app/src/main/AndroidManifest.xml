@@ -18,14 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ResetDetailsActivity"></activity>
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".QualificationActivity" />
-        <activity android:name=".PreferenceActivity">
+        <activity android:name=".PDFActivity">
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ResetDetailsActivity" />
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".QualificationActivity" />
+        <activity android:name=".PreferenceActivity" />
         <activity android:name=".OTPActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
