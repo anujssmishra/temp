@@ -10,7 +10,7 @@ import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.shockwave.pdfium.PdfDocument
 
 class PDFActivity : AppCompatActivity(), OnPageChangeListener, OnLoadCompleteListener {
-    internal var pdfView: PDFView? = null
+    var pdfView: PDFView? = null
     internal var pageNumber: Int? = 0
     internal var pdfFileName: String? = null
 
@@ -19,7 +19,7 @@ class PDFActivity : AppCompatActivity(), OnPageChangeListener, OnLoadCompleteLis
         setContentView(R.layout.activity_pdf)
 
 
-        pdfView = findViewById<PDFView>(R.id.pdfView)
+        pdfView = findViewById(R.id.pdfView)
         displayFromAsset(SAMPLE_FILE)
     }
 
